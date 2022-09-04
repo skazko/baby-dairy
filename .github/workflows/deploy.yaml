@@ -1,0 +1,25 @@
+
+name: "Deploy"
+on:
+    push:
+        branches:
+            - master
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1 
+              with:
+                  node-version: 16.3.0
+            # Build
+            - run: npm ci
+            - run: npm run build
+            # Deploy
+            - uses: nekitcorp/yandex-storage-website-action@v1
+              with:
+                  accessKeyId: ${{ secrets.ACCESS_KEY_ID }}
+                  secretAccessKey: ${{ secrets.SECRET_ACCESS_KEY }}
+                  bucket: ${{ secrets.BUCKET }}
+                  path: "./site"
+                  clear: true

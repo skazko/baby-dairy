@@ -27,5 +27,5 @@
     padding: 12px 24px 24px 24px;
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
 }
